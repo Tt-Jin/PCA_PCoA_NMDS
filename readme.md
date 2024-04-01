@@ -13,9 +13,9 @@ PCA、PCoA、NMDS 三种数据降维分析方法及可视化
 
 3. PCA plot using ggplot2 部分是使用 ggplot2 绘图
 
-    - geom_text 函数添加样本名称，不需要展示时，注释掉即可
+        - geom_text 函数添加样本名称，不需要展示时，注释掉即可
 
-    - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
+        - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
 
 ### PCoA
 
@@ -40,21 +40,21 @@ PCA、PCoA、NMDS 三种数据降维分析方法及可视化
 
         - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
 
-box1 是主坐标 PCoA1 箱式图
+    box1 是主坐标 PCoA1 箱式图
 
-(1) geom_boxplot 函数添加箱线图
+        - geom_boxplot 函数添加箱线图
 
-(2) stat_boxplot 函数添加误差棒
+        - stat_boxplot 函数添加误差棒
 
-(3) geom_jitter 函数添加散点
+        - geom_jitter 函数添加散点
 
-(4) coord_flip 函数将柱子‘放倒’
+        - coord_flip 函数将柱子‘放倒’
 
-box2 是主坐标 PCoA2 箱式图
+    box2 是主坐标 PCoA2 箱式图
 
-box3 是展示 PERMANOVA 计算的 p value等文本信息
+    box3 是展示 PERMANOVA 计算的 p value等文本信息
 
-plot_layout 函数合并以上 4 个图片
+    plot_layout 函数合并以上 4 个图片
 
 
 ### NMDS
@@ -66,35 +66,35 @@ plot_layout 函数合并以上 4 个图片
 
 2. NMDS analysis with vegan 部分是读入绘图数据，调用 vegan 包进行 NMDS 分析并绘图，输出样本坐标文件 (无权重意义)，及 stress 值
 
-    - vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
+        - vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
 
-    - metaMDS 函数进行 NMDS 分析
+        - metaMDS 函数进行 NMDS 分析
 
 3. p value 部分是调用 anosim 函数进行 ANOSIM  非参数检验
 
 4. NMDS plot + boxplot using ggplot2 部分是使用 ggplot2 绘图
 
-plot 是基础的 NMDS 散点图
+    plot 是基础的 NMDS 散点图
 
-(1) geom_text 函数添加样本名称，不需要展示时，注释掉即可
+        - geom_text 函数添加样本名称，不需要展示时，注释掉即可
 
-(2) stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
+        - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
 
-box1 是 NMDS1 箱式图
+    box1 是 NMDS1 箱式图
 
-(1) geom_boxplot 函数添加箱线图
+        - geom_boxplot 函数添加箱线图
 
-(2) stat_boxplot 函数添加误差棒
+        - stat_boxplot 函数添加误差棒
 
-(3) geom_jitter 函数添加散点
+        - geom_jitter 函数添加散点
 
-(4) coord_flip 函数将柱子‘放倒’
+        - coord_flip 函数将柱子‘放倒’
 
-box2 是 NMDS2 箱式图
+    box2 是 NMDS2 箱式图
 
-box3 是展示 ANOSIM 计算的 p value等文本信息
+    box3 是展示 ANOSIM 计算的 p value等文本信息
 
-plot_layout 函数合并以上 4 个图片
+    plot_layout 函数合并以上 4 个图片
 
 
 ### 最重要的是：
