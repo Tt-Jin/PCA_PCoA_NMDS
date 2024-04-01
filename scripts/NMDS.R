@@ -1,0 +1,91 @@
+library(vegan)
+library(ggplot2)
+
+
+## Plotting settings ------------------------
+
+groups <- read.table('group_info.txt', header = FALSE, colClasses=c("character","character"))
+colnames(groups) <- c("sample", "group")
+
+length  <- length(unique(as.character(groups$sample)))
+length1 <- length(unique(as.character(groups$group)))
+times1  <- length%/%8
+res1    <- length%%8
+times2  <- length%/%5
+res2    <- length%%5
+
+# dot color and number
+mycol = c("#B2182B","#E69F00","#56B4E9","#009E73",
+          "#F0E442","#0072B2","#D55E00","#CC79A7",
+          "#CC6666","#9999CC","#66CC99","#99999","#ADD1E5")
+col1=rep(mycol,times1)
+col=c(col1,mycol[1:res1])
+
+# dot shape and number
+pich1 <- rep(c(15:18,20,7:14,0:6),times2)
+pich  <- c(pich1,15:(15+res2))
+
+# legend column number
+if(length1>30){
+  n = 2
+}else{
+  n = 1
+}
+
+## NMDS analysis with vegan ------------------------
+
+data <- read.table('input_data.xls', header = TRUE, 
+                   row.names = 1, sep = "\t", comment.char = "", check.names = FALSE)
+data <- t(data)
+
+distance <- vegdist(data, method = 'bray') #calculate distance
+nmds <- metaMDS(distance, k=2)
+
+points <- data.frame(scores(nmds))
+point  <- data.frame(sample = row.names(points), points) 
+write.csv(point, file = "results\\NMDS_scores.csv", row.names = FALSE)
+
+value <- nmds$stress
+if (value >= 0.001) {
+  stress <- paste("Stress =", sprintf("%.3f", value))
+} else if (value < 0.001) {
+  stress <- "Stress < 0.001"
+}
+
+
+## NMDS plot using ggplot2 ------------------------
+
+colnames(points)[1:2] <- c('dim1', 'dim2')
+plotdata = data.frame(rownames(points), points$dim1, points$dim2, groups$group)
+colnames(plotdata)=c("sample","dim1","dim2","group")
+
+plot <- ggplot(plotdata, aes(dim1, dim2)) + 
+  geom_point(aes(colour = group, shape = group), size = 6) + 
+  geom_text(aes(label = sample), size = 4, family = "Arial", hjust = 0.5, vjust = -1)+ # display sample names
+  scale_shape_manual(values = pich) + 
+  scale_colour_manual(values = col) +
+  #labs(title = "NMDS Plot") + 
+  xlab("NMDS1") + 
+  ylab("NMDS2") +
+  theme(plot.title = element_text(hjust = 0.5, size = 18, colour = "black", face = "bold")) +
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  geom_hline(yintercept = 0, linetype = "dotted") +
+  geom_text(aes(x = max(dim1), y = max(dim2)), hjust = 1, vjust = 0, size = 5, label = stress, colour = "black") +
+  theme(panel.background = element_rect(fill = 'white', colour = 'black'), 
+        panel.grid = element_blank(), 
+        axis.title = element_text(color = 'black', family = "Arial", size = 15),
+        axis.text = element_text(colour = 'black', size = 14, margin = unit(0.6, "lines")),
+        axis.ticks = element_line(color = 'black'), 
+        axis.ticks.length = unit(0.4, "lines"), 
+        legend.title = element_blank(),
+        legend.text = element_text(family = "Arial", size = 14),
+        legend.key = element_blank()) +
+  guides(col = guide_legend(ncol = n), shape = guide_legend(ncol = n))
+#stat_ellipse(aes(x = dim1,y = dim2, color = group), data = plotdata) # group cluster
+
+ggsave("results\\NMDS.pdf", device = cairo_pdf, height = 10, width = 12)
+
+png(filename ="results\\NMDS.png", res = 600, height = 5400, width = 7200, type="cairo")
+print(plot)
+dev.off()
+
