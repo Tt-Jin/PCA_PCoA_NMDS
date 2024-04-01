@@ -34,11 +34,11 @@ PCA、PCoA、NMDS 三种数据降维分析方法及可视化
 
 4. PCoA plot + boxplot using ggplot2 部分是使用 ggplot2 绘图
 
-plot 是基础的 PCoA 散点图
+    plot 是基础的 PCoA 散点图
 
-(1) geom_text 函数添加样本名称，不需要展示时，注释掉即可
+        - geom_text 函数添加样本名称，不需要展示时，注释掉即可
 
-(2) stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
+        - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
 
 box1 是主坐标 PCoA1 箱式图
 
