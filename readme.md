@@ -13,9 +13,9 @@ PCA、PCoA、NMDS 三种数据降维分析方法及可视化
 
 3. PCA plot using ggplot2 部分是使用 ggplot2 绘图
 
-(1) geom_text 函数添加样本名称，不需要展示时，注释掉即可
+    - geom_text 函数添加样本名称，不需要展示时，注释掉即可
 
-(2) stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
+    - stat_ellipse 函数添加聚类圆圈，不需要展示时，注释掉即可
 
 ### PCoA
 
@@ -26,9 +26,9 @@ PCA、PCoA、NMDS 三种数据降维分析方法及可视化
 
 2. PCoA analysis with vegan 部分是读入绘图数据，调用 vegan 包进行 PCoA 分析并绘图，输出样本距离矩阵，样本坐标文件，及 PCoA1、PCoA2 主坐标对样品矩阵数据差异的贡献度
 
-(1) vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
+    - vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
 
-(2) cmdscale 函数进行 PCoA 分析
+    - cmdscale 函数进行 PCoA 分析
 
 3. p value 部分是调用 adonis2 函数进行 PERMANOVA 非参数检验
 
@@ -66,9 +66,9 @@ plot_layout 函数合并以上 4 个图片
 
 2. NMDS analysis with vegan 部分是读入绘图数据，调用 vegan 包进行 NMDS 分析并绘图，输出样本坐标文件 (无权重意义)，及 stress 值
 
-(1) vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
+    - vegdist 函数计算距离矩阵，通过 method 选择计算距离矩阵的方法 (例如 euclidean, bray ...)
 
-(2) metaMDS 函数进行 NMDS 分析
+    - metaMDS 函数进行 NMDS 分析
 
 3. p value 部分是调用 anosim 函数进行 ANOSIM  非参数检验
 
